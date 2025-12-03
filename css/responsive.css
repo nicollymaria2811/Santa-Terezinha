@@ -1,0 +1,317 @@
+/* Responsive Design - Mobile First */
+
+/* Extra Small devices (phones, 576px and down) */
+@media (max-width: 575.98px) {
+    .login-container {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    .login-title {
+        font-size: 1.5rem;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .user-info {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center !important;
+    }
+    
+    .logout-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        margin-top: 0.5rem !important;
+    }
+    
+    .main-content {
+        padding: 1rem 0.5rem;
+    }
+    
+    .dashboard {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .tab-header {
+        flex-direction: column;
+    }
+    
+    .tab-button {
+        border-bottom: 1px solid #e5e7eb;
+        border-right: none;
+        text-align: center;
+    }
+    
+    .tab-button.active {
+        border-bottom-color: #3b82f6;
+        border-right: 3px solid #3b82f6;
+    }
+    
+    .tab-content {
+        padding: 1rem;
+    }
+    
+    .card-header,
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .table {
+        font-size: 0.8rem;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.5rem;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-input,
+    .form-select,
+    .form-textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .login-container {
+        max-width: 24rem;
+    }
+    
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tab-header {
+        flex-wrap: wrap;
+    }
+    
+    .tab-button {
+        flex: 1 1 50%;
+        min-width: 120px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .login-container {
+        max-width: 26rem;
+    }
+    
+    .dashboard {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .tab-button {
+        flex: 1;
+    }
+    
+    .header-content {
+        flex-direction: row;
+    }
+    
+    .user-info {
+        flex-direction: row;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .dashboard {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .main-content {
+        padding: 2rem;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .main-content {
+        max-width: 1400px;
+        padding: 2rem 3rem;
+    }
+    
+    .dashboard {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+    
+    .stat-card {
+        padding: 2rem;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+    .login-page {
+        padding: 1rem 0;
+    }
+    
+    .login-container {
+        max-width: 90%;
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .login-logo,
+    .stat-icon {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .tab-header,
+    .btn,
+    .notification {
+        display: none !important;
+    }
+    
+    .main-content {
+        padding: 0;
+        max-width: none;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #000;
+        break-inside: avoid;
+    }
+    
+    .table {
+        font-size: 12px;
+    }
+    
+    .stat-card {
+        break-inside: avoid;
+    }
+}
+
+/* Accessibility - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .login-form-button:hover,
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* Accessibility - High contrast */
+@media (prefers-contrast: high) {
+    .login-card,
+    .card,
+    .stat-card {
+        border: 2px solid #000;
+    }
+    
+    .login-form-input,
+    .form-input,
+    .form-select,
+    .form-textarea {
+        border: 2px solid #000;
+    }
+    
+    .btn {
+        border: 2px solid #000;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: #e5e5e5;
+    }
+    
+    .main-content {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+    
+    .card,
+    .stat-card,
+    .tabs {
+        background: rgba(45, 45, 45, 0.9);
+        backdrop-filter: blur(10px);
+        border-color: #404040;
+        color: #e5e5e5;
+    }
+    
+    .stat-card::before {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+    
+    .card::before {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+    
+    .table th {
+        background: #404040;
+        color: #e5e5e5;
+    }
+    
+    .table tbody tr:hover {
+        background: #404040;
+    }
+    
+    .form-input,
+    .form-select,
+    .form-textarea {
+        background: #2d2d2d;
+        border-color: #404040;
+        color: #e5e5e5;
+    }
+    
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        border-color: #667eea;
+        background: #2d2d2d;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .tab-button.active {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    }
+}

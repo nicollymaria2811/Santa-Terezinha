@@ -1,0 +1,7 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="40" cy="40" r="40" fill="#3498db"/>
+<path d="M20 25L30 15H50L45 25H55L50 35H40L35 45H25L30 35H20L25 25H20Z" fill="white"/>
+<circle cx="40" cy="40" r="3" fill="#3498db"/>
+<text x="40" y="55" text-anchor="middle" fill="white" font-family="Arial" font-size="8" font-weight="bold">ST</text>
+</svg>
+

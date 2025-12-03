@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Terezinha - Sistema de Transporte Público</title>
+    <script>
+        // Redirecionar para a página de login
+        window.location.href = 'login.html';
+    </script>
+</head>
+<body>
+    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h2>Redirecionando para o sistema...</h2>
+        <p>Se você não foi redirecionado automaticamente, <a href="login.html">clique aqui</a>.</p>
+    </div>
+    <!-- Tela de Login Unificada -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="/assets/logo-c599e7a9.svg" alt="Santa Terezinha" class="logo">
+                <h1>Sistema de Transporte Público</h1>
+                <p>Santa Terezinha - Fraiburgo/SC</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="userType">Tipo de Usuário:</label>
+                    <select id="userType" required>
+                        <option value="">Selecione seu perfil</option>
+                        <option value="passageiro">Passageiro</option>
+                        <option value="motorista">Motorista</option>
+                        <option value="mecanico">Mecânico</option>
+                        <option value="gestor">Gestor</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" required placeholder="Digite seu usuário">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" required placeholder="Digite sua senha">
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+            </form>
+            
+            <div class="login-info">
+                <p><strong>Usuários de Demonstração:</strong></p>
+                <p>Passageiro: user1 / senha123</p>
+                <p>Motorista: motorista1 / senha123</p>
+                <p>Mecânico: mecanico1 / senha123</p>
+                <p>Gestor: gestor1 / senha123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface do Passageiro -->
+    <div id="passageiroScreen" class="screen">
+        <header class="app-header">
+            <button class="btn-back" onclick="showLogin()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1>Passageiro</h1>
+            <button class="btn-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <nav class="app-nav" id="passageiroNav">
+            <a href="#" class="nav-item active" onclick="showPassageiroSection('horarios')">
+                <i class="fas fa-clock"></i>
+                <span>Horários</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showPassageiroSection('avisos')">
+                <i class="fas fa-bullhorn"></i>
+                <span>Avisos</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showPassageiroSection('chat')">
+                <i class="fas fa-comments"></i>
+                <span>Chat</span>
+            </a>
+        </nav>
+
+        <main class="app-main">
+            <!-- Seção Horários -->
+            <section id="horariosSection" class="section active">
+                <h2>Consulta de Horários e Rotas</h2>
+                <div class="search-container">
+                    <input type="text" id="routeSearch" placeholder="Digite o nome da linha ou destino">
+                    <button onclick="searchRoutes()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="routes-list" id="routesList">
+                    <!-- Rotas serão carregadas dinamicamente -->
+                </div>
+            </section>
+
+            <!-- Seção Avisos -->
+            <section id="avisosSection" class="section">
+                <h2>Avisos em Tempo Real</h2>
+                <div class="notices-container" id="noticesContainer">
+                    <!-- Avisos serão carregados dinamicamente -->
+                </div>
+            </section>
+
+            <!-- Seção Chat -->
+            <section id="chatSection" class="section">
+                <h2>Chat com a Empresa</h2>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Mensagens serão carregadas dinamicamente -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="Digite sua mensagem...">
+                        <button onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Interface do Motorista -->
+    <div id="motoristaScreen" class="screen">
+        <header class="app-header">
+            <button class="btn-back" onclick="showLogin()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1>Motorista</h1>
+            <button class="btn-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <nav class="app-nav" id="motoristaNav">
+            <a href="#" class="nav-item active" onclick="showMotoristaSection('problemas')">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Reportar</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showMotoristaSection('escala')">
+                <i class="fas fa-calendar"></i>
+                <span>Escala</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showMotoristaSection('controle')">
+                <i class="fas fa-play-circle"></i>
+                <span>Controle</span>
+            </a>
+        </nav>
+
+        <main class="app-main">
+            <!-- Seção Reportar Problemas -->
+            <section id="problemasSection" class="section active">
+                <h2>Reportar Problemas</h2>
+                <form id="problemaForm" class="form">
+                    <div class="form-group">
+                        <label for="tipoProblema">Tipo de Problema:</label>
+                        <select id="tipoProblema" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="mecanico">Problema Mecânico</option>
+                            <option value="eletrico">Problema Elétrico</option>
+                            <option value="pneu">Problema com Pneus</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="descricaoProblema">Descrição:</label>
+                        <textarea id="descricaoProblema" required placeholder="Descreva o problema em detalhes..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urgencia">Urgência:</label>
+                        <select id="urgencia" required>
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                            <option value="critica">Crítica</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Enviar Chamado
+                    </button>
+                </form>
+            </section>
+
+            <!-- Seção Escala -->
+            <section id="escalaSection" class="section">
+                <h2>Minha Escala</h2>
+                <div class="schedule-container" id="scheduleContainer">
+                    <!-- Escala será carregada dinamicamente -->
+                </div>
+            </section>
+
+            <!-- Seção Controle de Linha -->
+            <section id="controleSection" class="section">
+                <h2>Controle de Linha</h2>
+                <div class="controle-linha-container" id="controleLinhaContainer">
+                    <!-- Controle será carregado dinamicamente -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Interface do Mecânico -->
+    <div id="mecanicoScreen" class="screen">
+        <header class="app-header">
+            <button class="btn-back" onclick="showLogin()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1>Mecânico</h1>
+            <button class="btn-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <nav class="app-nav" id="mecanicoNav">
+            <a href="#" class="nav-item active" onclick="showMecanicoSection('chamados')">
+                <i class="fas fa-tools"></i>
+                <span>Chamados</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showMecanicoSection('checklist')">
+                <i class="fas fa-clipboard-check"></i>
+                <span>Checklist</span>
+            </a>
+        </nav>
+
+        <main class="app-main">
+            <!-- Seção Chamados -->
+            <section id="chamadosSection" class="section active">
+                <h2>Painel de Chamados Técnicos</h2>
+                <div class="chamados-container" id="chamadosContainer">
+                    <!-- Chamados serão carregados dinamicamente -->
+                </div>
+            </section>
+
+            <!-- Seção Checklist -->
+            <section id="checklistSection" class="section">
+                <h2>Checklist de Manutenção</h2>
+                <div class="checklist-container" id="checklistContainer">
+                    <!-- Checklist será carregado dinamicamente -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Interface do Gestor -->
+    <div id="gestorScreen" class="screen">
+        <header class="app-header">
+            <button class="btn-back" onclick="showLogin()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1>Gestor</h1>
+            <button class="btn-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <nav class="app-nav" id="gestorNav">
+            <a href="#" class="nav-item active" onclick="showGestorSection('dashboard')">
+                <i class="fas fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showGestorSection('gestao')">
+                <i class="fas fa-cogs"></i>
+                <span>Gestão</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showGestorSection('chamados')">
+                <i class="fas fa-tools"></i>
+                <span>Chamados</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showGestorSection('mensagens')">
+                <i class="fas fa-envelope"></i>
+                <span>Mensagens</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showGestorSection('relatorios')">
+                <i class="fas fa-file-alt"></i>
+                <span>Relatórios</span>
+            </a>
+        </nav>
+
+        <main class="app-main">
+            <!-- Seção Dashboard -->
+            <section id="dashboardSection" class="section active">
+                <h2>Dashboard Operacional</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Status da Frota</h3>
+                        <div class="chart-container">
+                            <canvas id="frotaChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Status dos Motoristas</h3>
+                        <div class="chart-container">
+                            <canvas id="motoristasChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Chamados Abertos</h3>
+                        <div class="stats-number" id="chamadosAbertos">0</div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Mensagens Pendentes</h3>
+                        <div class="stats-number" id="mensagensPendentes">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Gestão -->
+            <section id="gestaoSection" class="section">
+                <h2>Gestão do Sistema</h2>
+                <div class="gestao-tabs">
+                    <button class="tab-btn active" onclick="showGestaoTab('avisos')">Avisos</button>
+                    <button class="tab-btn" onclick="showGestaoTab('horarios')">Horários</button>
+                    <button class="tab-btn" onclick="showGestaoTab('escalas')">Escalas</button>
+                </div>
+                
+                <!-- Avisos -->
+                <div id="avisosGestao" class="gestao-content active">
+                    <h3>Gerenciar Avisos</h3>
+                    <button class="btn-primary" onclick="abrirModalAviso()">
+                        <i class="fas fa-plus"></i> Novo Aviso
+                    </button>
+                    <div class="avisos-lista" id="avisosLista">
+                        <!-- Avisos serão carregados dinamicamente -->
+                    </div>
+                </div>
+                
+                <!-- Horários -->
+                <div id="horariosGestao" class="gestao-content">
+                    <h3>Gerenciar Horários</h3>
+                    <div class="horarios-gestao" id="horariosGestaoContainer">
+                        <!-- Horários serão carregados dinamicamente -->
+                    </div>
+                </div>
+                
+                <!-- Escalas -->
+                <div id="escalasGestao" class="gestao-content">
+                    <h3>Gerenciar Escalas</h3>
+                    <button class="btn-primary" onclick="abrirModalEscala()">
+                        <i class="fas fa-plus"></i> Nova Escala
+                    </button>
+                    <div class="escalas-lista" id="escalasLista">
+                        <!-- Escalas serão carregadas dinamicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Relatórios -->
+            <section id="relatoriosSection" class="section">
+                <h2>Relatórios</h2>
+                <div class="reports-container">
+                    <button class="btn-primary" onclick="gerarRelatorioOperacional()">
+                        <i class="fas fa-download"></i> Relatório Operacional
+                    </button>
+                    <button class="btn-primary" onclick="gerarRelatorioManutencao()">
+                        <i class="fas fa-download"></i> Relatório de Manutenção
+                    </button>
+                    <button class="btn-primary" onclick="gerarRelatorioPassageiros()">
+                        <i class="fas fa-download"></i> Relatório de Passageiros
+                    </button>
+                    <button class="btn-primary" onclick="gerarRelatorioChamados()">
+                        <i class="fas fa-download"></i> Relatório de Chamados
+                    </button>
+                </div>
+                <div id="relatorioPreview" class="relatorio-preview">
+                    <!-- Preview do relatório será exibido aqui -->
+                </div>
+            </section>
+
+            <!-- Seção Chamados -->
+            <section id="gestorChamadosSection" class="section">
+                <h2>Gestão de Chamados</h2>
+                <div class="chamados-gestao" id="chamadosGestao">
+                    <!-- Chamados serão carregados dinamicamente -->
+                </div>
+            </section>
+
+            <!-- Seção Mensagens -->
+            <section id="mensagensSection" class="section">
+                <h2>Mensagens dos Passageiros</h2>
+                <div class="mensagens-gestao" id="mensagensGestao">
+                    <!-- Mensagens serão carregadas dinamicamente -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para Criar Aviso -->
+    <div id="modalAviso" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Novo Aviso</h3>
+                <span class="close" onclick="fecharModalAviso()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="formAviso">
+                    <div class="form-group">
+                        <label for="avisoTitulo">Título:</label>
+                        <input type="text" id="avisoTitulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="avisoConteudo">Conteúdo:</label>
+                        <textarea id="avisoConteudo" required rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="avisoTipo">Tipo:</label>
+                        <select id="avisoTipo" required>
+                            <option value="atraso">Atraso</option>
+                            <option value="feriado">Feriado</option>
+                            <option value="novidade">Novidade</option>
+                            <option value="manutencao">Manutenção</option>
+                            <option value="geral">Geral</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="avisoPrioridade">Prioridade:</label>
+                        <select id="avisoPrioridade" required>
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                            <option value="critica">Crítica</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="avisoExpiracao">Data de Expiração (opcional):</label>
+                        <input type="datetime-local" id="avisoExpiracao">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="fecharModalAviso()">Cancelar</button>
+                <button class="btn-primary" onclick="salvarAviso()">Salvar Aviso</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Criar Escala -->
+    <div id="modalEscala" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nova Escala</h3>
+                <span class="close" onclick="fecharModalEscala()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="formEscala">
+                    <div class="form-group">
+                        <label for="escalaMotorista">Motorista:</label>
+                        <select id="escalaMotorista" required>
+                            <!-- Será preenchido dinamicamente -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="escalaData">Data:</label>
+                        <input type="date" id="escalaData" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="escalaTurno">Turno:</label>
+                        <select id="escalaTurno" required>
+                            <option value="manha">Manhã</option>
+                            <option value="tarde">Tarde</option>
+                            <option value="noite">Noite</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="escalaHorarioInicio">Horário de Início:</label>
+                        <input type="time" id="escalaHorarioInicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="escalaHorarioFim">Horário de Fim:</label>
+                        <input type="time" id="escalaHorarioFim" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="escalaRota">Rota:</label>
+                        <select id="escalaRota" required>
+                            <!-- Será preenchido dinamicamente -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="escalaVeiculo">Veículo:</label>
+                        <select id="escalaVeiculo" required>
+                            <!-- Será preenchido dinamicamente -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="fecharModalEscala()">Cancelar</button>
+                <button class="btn-primary" onclick="salvarEscala()">Salvar Escala</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Resolver Chamado -->
+    <div id="modalResolverChamado" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Resolver Chamado</h3>
+                <span class="close" onclick="fecharModalResolverChamado()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="formResolverChamado">
+                    <div class="form-group">
+                        <label for="solucaoDescricao">Descrição da Solução:</label>
+                        <textarea id="solucaoDescricao" required rows="4" placeholder="Descreva o que foi feito para resolver o problema..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="solucaoPecas">Peças Utilizadas:</label>
+                        <textarea id="solucaoPecas" rows="3" placeholder="Liste as peças que foram trocadas ou utilizadas..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="solucaoCusto">Custo Estimado:</label>
+                        <input type="number" id="solucaoCusto" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label for="solucaoObservacoes">Observações Adicionais:</label>
+                        <textarea id="solucaoObservacoes" rows="3" placeholder="Outras observações importantes..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="fecharModalResolverChamado()">Cancelar</button>
+                <button class="btn-primary" onclick="confirmarResolucaoChamado()">Confirmar Resolução</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
